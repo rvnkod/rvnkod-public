@@ -1,0 +1,523 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0",
+    "title": "TSS WhatsApp Gateway API",
+    "description": "API specification for sending session and template messages",
+    "contact": {
+      "email": "support@tayana.in",
+      "name": "Tayana Software Solutions Private Ltd"
+    }
+  },
+  "host": "localhost:443",
+  "basePath": "/wag/v1",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/msgs": {
+      "post": {
+        "description": "Session Message API for Connecting to TSS WhatsApp Gateways",
+        "summary": "post-msgs",
+        "tags": [
+          "WhatsApp"
+        ],
+        "operationId": "post-msgs",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "description": "Session Message API body",
+            "schema": {
+              "$ref": "#/definitions/sessionMsg"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/GenericResponse"
+            },
+            "headers": {
+              "Authorization": {
+                "description": "API UserName and Password encoded in Base64 Format",
+                "type": "string"
+              }
+            }
+          },
+          "202": {
+            "description": "Accepted",
+            "schema": {
+              "$ref": "#/definitions/GenericResponse"
+            },
+            "headers": {}
+          },
+          "204": {
+            "description": "No Content",
+            "schema": {
+              "$ref": "#/definitions/GenericResponse"
+            },
+            "headers": {}
+          },
+          "206": {
+            "description": "Partial Content",
+            "schema": {
+              "$ref": "#/definitions/GenericResponse"
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/GenericResponse"
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/GenericResponse"
+            },
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/GenericResponse"
+            },
+            "headers": {}
+          },
+          "405": {
+            "description": "Method Not Allowed",
+            "schema": {
+              "$ref": "#/definitions/GenericResponse"
+            },
+            "headers": {}
+          },
+          "408": {
+            "description": "Request Timeout",
+            "schema": {
+              "$ref": "#/definitions/GenericResponse"
+            },
+            "headers": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/GenericResponse"
+            },
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/template": {
+      "post": {
+        "description": "Template Message API for Connecting to TSS WhatsApp Gateway",
+        "summary": "post-template",
+        "tags": [
+          "WhatsApp"
+        ],
+        "operationId": "post-template",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/templateMsg"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/GenericResponse"
+            },
+            "headers": {}
+          },
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/GenericResponse"
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/GenericResponse"
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/GenericResponse"
+            },
+            "headers": {}
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/GenericResponse"
+            },
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/GenericResponse"
+            },
+            "headers": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/GenericResponse"
+            },
+            "headers": {}
+          },
+          "501": {
+            "description": "Not Implemented",
+            "schema": {
+              "$ref": "#/definitions/GenericResponse"
+            },
+            "headers": {}
+          },
+          "502": {
+            "description": "Bad Gateway",
+            "schema": {
+              "$ref": "#/definitions/GenericResponse"
+            },
+            "headers": {}
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/GenericResponse"
+            },
+            "headers": {}
+          },
+          "504": {
+            "description": "Gateway Timeout",
+            "schema": {
+              "$ref": "#/definitions/GenericResponse"
+            },
+            "headers": {}
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "sessionMsg": {
+      "title": "sessionMsg",
+      "description": "TSS WhatsApp GW APIs to send sessions message. Messages can be sent are: text, text with preview URL, media image, media document, media audio, media video, media location",
+      "type": "object",
+      "properties": {
+        "txnId": {
+          "description": "Source Transaction Identifier",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 30
+        },
+        "number": {
+          "description": "Mobile Number",
+          "type": "string",
+          "minLength": 5,
+          "maxLength": 20,
+          "pattern": "^[0-9]+"
+        },
+        "req_type": {
+          "$ref": "#/definitions/ReqType"
+        },
+        "req_mode": {
+          "$ref": "#/definitions/ReqMode"
+        },
+        "file_name": {
+          "description": "Bulk File upload link",
+          "type": "string"
+        },
+        "media": {
+          "$ref": "#/definitions/Media"
+        }
+      },
+      "required": [
+        "number",
+        "req_type",
+        "req_mode"
+      ]
+    },
+    "GenericResponse": {
+      "title": "GenericResponse",
+      "description": "Generic API Response",
+      "type": "object",
+      "properties": {
+        "refId": {
+          "description": "Internally Generated Reference Identifier",
+          "type": "string"
+        },
+        "txnId": {
+          "description": "Source Transaction Identifier",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 30
+        },
+        "status": {
+          "$ref": "#/definitions/Status"
+        },
+        "description": {
+          "description": "Description(s) for Error Code",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "error": {
+          "description": "Failure Error Codes",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "refId",
+        "status"
+      ]
+    },
+    "templateMsg": {
+      "title": "templateMsg",
+      "description": "TSS WhatsApp GW API for sending template message",
+      "type": "object",
+      "properties": {
+        "txnid": {
+          "description": "Source Transaction Identifier",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 30
+        },
+        "number": {
+          "description": "Mobile Number",
+          "type": "string",
+          "minLength": 5,
+          "maxLength": 20,
+          "pattern": "^[0-9]+"
+        },
+        "type": {
+          "description": "Media Type - template",
+          "example": "template",
+          "type": "string",
+          "default": "template"
+        },
+        "media": {
+          "$ref": "#/definitions/Media1"
+        }
+      },
+      "required": [
+        "number",
+        "type",
+        "media"
+      ]
+    },
+    "Document": {
+      "title": "Document",
+      "type": "object",
+      "properties": {
+        "link": {
+          "description": "Complete link to the file",
+          "type": "string"
+        }
+      }
+    },
+    "Image": {
+      "title": "Image",
+      "type": "object",
+      "properties": {
+        "link": {
+          "description": "Complete link to the file",
+          "type": "string"
+        }
+      }
+    },
+    "Media": {
+      "title": "Media",
+      "type": "object",
+      "properties": {
+        "msg": {
+          "description": "Text Message",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 5012
+        },
+        "preview_url": {
+          "description": "Enable Preview URL for WhatsApp",
+          "example": false,
+          "type": "boolean",
+          "default": false
+        },
+        "link": {
+          "description": "Complete link to the file",
+          "type": "string"
+        },
+        "file": {
+          "description": "sample .pdf file name",
+          "type": "string",
+          "minLength": 1
+        },
+        "caption": {
+          "description": "sample text",
+          "type": "string",
+          "minLength": 1
+        },
+        "longitude": {
+          "description": "example: 72.838249",
+          "type": "string",
+          "minLength": 1
+        },
+        "latitude": {
+          "description": "example: 18.991341",
+          "type": "string",
+          "minLength": 1
+        },
+        "name": {
+          "description": "Location Name",
+          "type": "string",
+          "minLength": 1
+        },
+        "address": {
+          "description": "Location Address",
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "Media1": {
+      "title": "Media1",
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "Template Name",
+          "type": "string"
+        },
+        "header": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/templateHeader"
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "body": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/templateBody"
+          }
+        }
+      },
+      "required": [
+        "name",
+        "header",
+        "body"
+      ]
+    },
+    "ReqMode": {
+      "title": "ReqMode",
+      "description": "Single ot Bulk",
+      "type": "string",
+      "enum": [
+        "single",
+        "bulk"
+      ]
+    },
+    "ReqType": {
+      "title": "ReqType",
+      "description": "Media Type to be sent. It can be text|document|audio|video|image|location",
+      "type": "string",
+      "enum": [
+        "image",
+        "document",
+        "audio",
+        "video",
+        "location",
+        "text"
+      ]
+    },
+    "Status": {
+      "title": "Status",
+      "description": "Status of the Request",
+      "type": "string",
+      "enum": [
+        "SUCCESS",
+        "FAILURE",
+        "IN_PROGRESS",
+        "TIMEOUT"
+      ]
+    },
+    "templateBody": {
+      "title": "templateBody",
+      "type": "object",
+      "properties": {
+        "text": {
+          "description": "Placeholder Text",
+          "type": "string"
+        }
+      }
+    },
+    "templateHeader": {
+      "title": "templateHeader",
+      "type": "object",
+      "properties": {
+        "video": {
+          "$ref": "#/definitions/Video"
+        },
+        "document": {
+          "$ref": "#/definitions/Document"
+        },
+        "image": {
+          "$ref": "#/definitions/Image"
+        }
+      }
+    },
+    "Video": {
+      "title": "Video",
+      "type": "object",
+      "properties": {
+        "link": {
+          "description": "Complete link to the file",
+          "type": "string"
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "WhatsApp"
+    }
+  ]
+}
