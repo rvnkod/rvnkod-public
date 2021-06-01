@@ -1,0 +1,883 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0",
+    "title": "TSS WhatsApp Gateway API",
+    "description": "API specification for sending session and template messages",
+    "contact": {
+      "email": "support@tayana.in",
+      "name": "Tayana Software Solutions Private Ltd"
+    }
+  },
+  "host": "localhost:443",
+  "basePath": "/wag/v1",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/msgs": {
+      "post": {
+        "description": "Session Message API for Connecting to TSS WhatsApp Gateways",
+        "summary": "post-msgs",
+        "tags": [
+          "WhatsApp"
+        ],
+        "operationId": "post-msgs",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "type": "string",
+            "description": "Base64 encoded username:password"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "description": "Session Message API body",
+            "schema": {
+              "$ref": "#/definitions/sessionMsg"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Accepted",
+            "schema": {
+              "$ref": "#/definitions/GenericResponse"
+            },
+            "headers": {}
+          },
+          "206": {
+            "description": "Partial Content",
+            "schema": {
+              "$ref": "#/definitions/GenericResponse"
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object"
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object"
+            },
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object"
+            },
+            "headers": {}
+          },
+          "408": {
+            "description": "Request Timeout",
+            "schema": {
+              "type": "object"
+            },
+            "headers": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object"
+            },
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/template": {
+      "post": {
+        "description": "Template Message API for Connecting to TSS WhatsApp Gateway",
+        "summary": "post-template",
+        "tags": [
+          "WhatsApp"
+        ],
+        "operationId": "post-template",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "type": "string",
+            "description": "Base64 encoded username:password"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "description": "Template Message API Body",
+            "schema": {
+              "$ref": "#/definitions/templateMsg"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Accepted",
+            "schema": {
+              "$ref": "#/definitions/GenericResponse"
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object"
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object"
+            },
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object"
+            },
+            "headers": {}
+          },
+          "408": {
+            "description": "Request Timeout",
+            "schema": {
+              "type": "object"
+            },
+            "headers": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object"
+            },
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/optin": {
+      "post": {
+        "description": "API for opting-in for messaging service",
+        "summary": "post-optin",
+        "tags": [
+          "WhatsApp"
+        ],
+        "operationId": "post-optin",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "type": "string",
+            "description": "Base64 encoded username:password"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "description": "Optin API request body",
+            "schema": {
+              "$ref": "#/definitions/OptinRequest"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Accepted",
+            "schema": {
+              "$ref": "#/definitions/GenericResponse"
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object"
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object"
+            },
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object"
+            },
+            "headers": {}
+          },
+          "408": {
+            "description": "Request Timeout",
+            "schema": {
+              "type": "object"
+            },
+            "headers": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object"
+            },
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/optout": {
+      "post": {
+        "description": "API for opting out from messaging service",
+        "summary": "post-optout",
+        "tags": [
+          "WhatsApp"
+        ],
+        "operationId": "post-optout",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "type": "string",
+            "description": "Base64 encoded username:password"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/OptoutRequest"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Accepted",
+            "schema": {
+              "$ref": "#/definitions/GenericResponse"
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object"
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object"
+            },
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object"
+            },
+            "headers": {}
+          },
+          "408": {
+            "description": "Request Timeout",
+            "schema": {
+              "type": "object"
+            },
+            "headers": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object"
+            },
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/status": {
+      "get": {
+        "description": "API to get the status of a sent message",
+        "summary": "get-status",
+        "tags": [
+          "WhatsApp"
+        ],
+        "operationId": "get-status",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "type": "string",
+            "description": "Base64 encoded username:password"
+          },
+          {
+            "name": "txnid",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 30,
+            "description": "Source Transaction Identifier"
+          },
+          {
+            "name": "refid",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 30,
+            "description": "Reference Identifier received in response of TSS WAG"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/statusResponse"
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object"
+            },
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object"
+            },
+            "headers": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object"
+            },
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/bulkmsg": {
+      "post": {
+        "description": "API to send bulk message",
+        "summary": "post-bulkmsg",
+        "tags": [
+          "WhatsApp"
+        ],
+        "operationId": "post-bulkmsg",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "type": "string",
+            "description": "Base64 encoded username:password"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "description": "Bulk Message API Body",
+            "schema": {
+              "$ref": "#/definitions/BulkmsgRequest"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Accepted",
+            "schema": {
+              "$ref": "#/definitions/GenericResponse"
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object"
+            },
+            "headers": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object"
+            },
+            "headers": {}
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "sessionMsg": {
+      "title": "sessionMsg",
+      "description": "TSS WhatsApp GW APIs to send sessions message. Messages can be sent are: text, text with preview URL, media image, media document, media audio, media video, media location",
+      "type": "object",
+      "properties": {
+        "txnId": {
+          "description": "Source Transaction Identifier",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 30
+        },
+        "number": {
+          "description": "Mobile Number",
+          "example": "919876543210",
+          "type": "string",
+          "minLength": 5,
+          "maxLength": 20,
+          "pattern": "^[0-9]+"
+        },
+        "media": {
+          "$ref": "#/definitions/Media"
+        }
+      },
+      "required": [
+        "number"
+      ]
+    },
+    "GenericResponse": {
+      "title": "GenericResponse",
+      "description": "Generic API Response",
+      "type": "object",
+      "properties": {
+        "refId": {
+          "description": "Internally Generated Unique Reference Identifier",
+          "type": "string"
+        },
+        "txnId": {
+          "description": "Source Transaction Identifier",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 30
+        },
+        "status": {
+          "$ref": "#/definitions/Status"
+        },
+        "description": {
+          "description": "Description(s) for Error Code",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "error": {
+          "description": "Failure Error Codes",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "refId",
+        "status"
+      ]
+    },
+    "templateMsg": {
+      "title": "templateMsg",
+      "description": "TSS WhatsApp GW API for sending template message",
+      "type": "object",
+      "properties": {
+        "txnid": {
+          "description": "Source Transaction Identifier",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 30
+        },
+        "number": {
+          "description": "Mobile Number",
+          "example": "919876543210",
+          "type": "string",
+          "minLength": 5,
+          "maxLength": 20,
+          "pattern": "^[0-9]+"
+        },
+        "type": {
+          "description": "Media Type - template",
+          "example": "template",
+          "type": "string",
+          "default": "template"
+        },
+        "media": {
+          "$ref": "#/definitions/Media1"
+        }
+      },
+      "required": [
+        "number",
+        "type",
+        "media"
+      ]
+    },
+    "statusResponse": {
+      "title": "statusResponse",
+      "type": "object",
+      "properties": {
+        "refId": {
+          "description": "Internally Generated Unique Reference Identifier",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 30
+        },
+        "txnid": {
+          "description": "Source Transaction Identifier",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 30
+        },
+        "number": {
+          "description": "Mobile Number with Country Code",
+          "example": "919876543210",
+          "type": "string",
+          "minLength": 5,
+          "maxLength": 20,
+          "pattern": "^[0-9]+"
+        },
+        "sent_time": {
+          "description": "Timestamp in YYYY-MM-DD HH24:MI:SS when message is received",
+          "example": "2010-05-21 05:42:00",
+          "type": "string",
+          "format": "date-time"
+        },
+        "delivery_time": {
+          "description": "Timestamp in YYYY-MM-DD HH24:MI:SS when message is delivered",
+          "example": "2010-05-21 05:42:00",
+          "type": "string",
+          "format": "date-time"
+        },
+        "msg_status": {
+          "$ref": "#/definitions/MsgStatus"
+        },
+        "error_code": {
+          "description": "Error code in case of failure",
+          "type": "string"
+        },
+        "description": {
+          "description": "Error Code Description",
+          "type": "string"
+        }
+      },
+      "required": [
+        "number"
+      ]
+    },
+    "BulkmsgRequest": {
+      "title": "BulkmsgRequest",
+      "type": "object",
+      "properties": {
+        "txnid": {
+          "description": "Source Transaction Identifier",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 30
+        },
+        "media": {
+          "$ref": "#/definitions/Media2"
+        }
+      }
+    },
+    "Document": {
+      "title": "Document",
+      "type": "object",
+      "properties": {
+        "link": {
+          "description": "Complete link to the file",
+          "type": "string"
+        }
+      }
+    },
+    "Image": {
+      "title": "Image",
+      "type": "object",
+      "properties": {
+        "link": {
+          "description": "Complete link to the file",
+          "type": "string"
+        }
+      }
+    },
+    "Media": {
+      "title": "Media",
+      "type": "object",
+      "properties": {
+        "req_type": {
+          "$ref": "#/definitions/ReqType"
+        },
+        "msg": {
+          "description": "Text Message",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 5012
+        },
+        "preview_url": {
+          "description": "Enable Preview URL for WhatsApp",
+          "example": false,
+          "type": "boolean",
+          "default": false
+        },
+        "link": {
+          "description": "Complete link to the file",
+          "type": "string"
+        },
+        "file": {
+          "description": "sample .pdf file name",
+          "type": "string",
+          "minLength": 1
+        },
+        "longitude": {
+          "description": "example: 72.838249",
+          "type": "string",
+          "minLength": 1
+        },
+        "latitude": {
+          "description": "example: 18.991341",
+          "type": "string",
+          "minLength": 1
+        },
+        "name": {
+          "description": "Location Name",
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "req_type"
+      ]
+    },
+    "Media1": {
+      "title": "Media1",
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "Template Name",
+          "type": "string"
+        },
+        "header": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/templateHeader"
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "body": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/templateBody"
+          }
+        }
+      },
+      "required": [
+        "name",
+        "header",
+        "body"
+      ]
+    },
+    "Media2": {
+      "title": "Media2",
+      "type": "object",
+      "properties": {
+        "req_type": {
+          "$ref": "#/definitions/ReqType"
+        },
+        "link": {
+          "description": "Compete file(Containing mobile number and other details) path",
+          "type": "string"
+        },
+        "file_type": {
+          "description": "FileType can be\n1. MobileNumber Only\n2. MobileNumber, Message\n3. MobileNumber, Message, link of media\n4. MobileNumber, Message, Location",
+          "type": "number",
+          "format": "double"
+        }
+      },
+      "required": [
+        "req_type"
+      ]
+    },
+    "MsgStatus": {
+      "title": "MsgStatus",
+      "description": "Satus of the message-ACCEPTED|REJECTED|SENT|DELIVERED|READ",
+      "type": "string",
+      "enum": [
+        "ACCEPTED",
+        "SENT",
+        "DELIVERED",
+        "READ",
+        "REJECTED"
+      ]
+    },
+    "OptinRequest": {
+      "title": "OptinRequest",
+      "type": "object",
+      "properties": {
+        "txnid": {
+          "description": "Source Transaction Identifier",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 30
+        },
+        "number": {
+          "description": "Mobile Number with Country Code",
+          "example": "919876543210",
+          "type": "string",
+          "minLength": 5,
+          "maxLength": 20,
+          "pattern": "^[0-9]+"
+        }
+      },
+      "required": [
+        "number"
+      ]
+    },
+    "OptoutRequest": {
+      "title": "OptoutRequest",
+      "type": "object",
+      "properties": {
+        "txnid": {
+          "description": "Source Transaction Identifier",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 30
+        },
+        "number": {
+          "description": "Mobile Number with Country Code",
+          "example": "919876543210",
+          "type": "string",
+          "minLength": 5,
+          "maxLength": 20,
+          "pattern": "^[0-9]+"
+        }
+      }
+    },
+    "ReqType": {
+      "title": "ReqType",
+      "description": "Media Type to be sent. It can be text|document|audio|video|image|location",
+      "type": "string",
+      "enum": [
+        "image",
+        "document",
+        "audio",
+        "video",
+        "location",
+        "text"
+      ]
+    },
+    "Status": {
+      "title": "Status",
+      "description": "Status of the Request",
+      "type": "string",
+      "enum": [
+        "SUCCESS",
+        "FAILURE",
+        "IN_PROGRESS",
+        "TIMEOUT"
+      ]
+    },
+    "templateBody": {
+      "title": "templateBody",
+      "type": "object",
+      "properties": {
+        "text": {
+          "description": "Placeholder Text",
+          "type": "string"
+        }
+      }
+    },
+    "templateHeader": {
+      "title": "templateHeader",
+      "type": "object",
+      "properties": {
+        "video": {
+          "$ref": "#/definitions/Video"
+        },
+        "document": {
+          "$ref": "#/definitions/Document"
+        },
+        "image": {
+          "$ref": "#/definitions/Image"
+        }
+      }
+    },
+    "Video": {
+      "title": "Video",
+      "type": "object",
+      "properties": {
+        "link": {
+          "description": "Complete link to the file",
+          "type": "string"
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "WhatsApp"
+    }
+  ]
+}
